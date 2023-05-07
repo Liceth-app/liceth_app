@@ -1,7 +1,47 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_ui_auth/firebase_ui_auth.dart';
+import 'package:firebase_ui_localizations/firebase_ui_localizations.dart';
+import 'package:firebase_ui_oauth_google/firebase_ui_oauth_google.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:liceth_app/features/basic_info/screen_basic_info.dart';
+import 'package:liceth_app/features/login/signup_login_screen.dart';
+import 'package:liceth_app/features/main/main_screen.dart';
+import 'package:liceth_app/firebase_options.dart';
+import 'package:liceth_app/private_constants.dart';
+import 'package:liceth_app/theme/color_schemes.dart';
+import 'package:oktoast/oktoast.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  //// Firebase setup
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  //// Crashlytics setup
+  if (kReleaseMode) {
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+    // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
+    PlatformDispatcher.instance.onError = (error, stack) {
+      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+      return true;
+    };
+  }
+
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+
+  FirebaseUIAuth.configureProviders([
+    GoogleProvider(clientId: GOOGLE_SIGN_IN_OAUTH_CLIENT_ID),
+  ]);
+
+  runApp(const OKToast(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -10,26 +50,48 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
+    final baseThemeData = ThemeData(
+      useMaterial3: true,
+      inputDecorationTheme: const InputDecorationTheme(
+        border: OutlineInputBorder(),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+    );
+
+    return MaterialApp(
+      title: 'Liceth.app',
+      theme: baseThemeData.copyWith(
+        colorScheme: lightColorScheme,
+      ),
+      darkTheme: baseThemeData.copyWith(
+        colorScheme: darkColorScheme,
+      ),
+      initialRoute: FirebaseAuth.instance.currentUser != null
+          ? BasicInfoScreen.routeName
+          : SignUpLogInScreen.routeName,
+      routes: <String, WidgetBuilder>{
+        MyHomePage.routeName: (context) =>
+            const MyHomePage(title: 'Liceth.app'),
+        SignUpLogInScreen.routeName: (context) => SignUpLogInScreen(),
+        BasicInfoScreen.routeName: (context) => const BasicInfoScreen(),
+        MainScreen.routeName: (context) => const MainScreen(),
+      },
+      localizationsDelegates: [
+        // Delegates below take care of built-in flutter widgets
+        ...GlobalMaterialLocalizations.delegates,
+
+        // This delegate is required to provide the labels that are not overridden by LabelOverrides
+        FirebaseUILocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en'), // English
+        Locale('es'), // Spanish
+      ],
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
+  static const String routeName = '/home';
   const MyHomePage({super.key, required this.title});
 
   // This widget is the home page of your application. It is stateful, meaning

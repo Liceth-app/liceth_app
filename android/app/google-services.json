@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "52476982233",
+    "project_id": "liceth-28",
+    "storage_bucket": "liceth-28.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:52476982233:android:93d917250d7edfdb7c5fc8",
+        "android_client_info": {
+          "package_name": "com.liceth.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "52476982233-3td6fq2pkovgtcu15kdalvtqgua283ga.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.liceth.app",
+            "certificate_hash": "822ccc6fa33b9fde57fcd51a5e0783327fb8ace7"
+          }
+        },
+        {
+          "client_id": "52476982233-no5ur822mt4n8h7r1i30o08gh8si1mam.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBih-XMJfgAD6x8YjHoOyCmEPWAZ9Yz-Wc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "52476982233-k4td48kl3al9hh5uv28pv8ku2ct0unpl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "52476982233-ihtqs8s8d845s9loabdq33eb21baiv65.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.licethApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

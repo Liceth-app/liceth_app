@@ -46,58 +46,63 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 40),
           child: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                verticalSpace(topPadding),
-                verticalSpace(30),
-                DropShadow(
-                  offset: const Offset(10, 10),
-                  blurRadius: 20,
-                  spread: 0.6,
-                  child: Image.asset(
-                    'assets/icons/droplet.png',
-                    width: 70,
-                  ),
-                ),
-                verticalSpace(30),
-                Text(
-                  "¿Cuándo empezó tu último periodo?",
-                  style: Theme.of(context).textTheme.titleLarge,
-                  textAlign: TextAlign.center,
-                ),
-                verticalSpace(120),
-                TextField(
-                  controller:
-                      _dateController, //editing controller of this TextField
-                  decoration: const InputDecoration(
-                      icon: Icon(Icons.calendar_today), //icon of text field
-                      labelText: "Fecha" //label text of field
+            child: Center(
+              child: Container(
+                constraints: const BoxConstraints(maxWidth: 640),
+                child: Column(
+                  children: <Widget>[
+                    verticalSpace(topPadding),
+                    verticalSpace(30),
+                    DropShadow(
+                      offset: const Offset(10, 10),
+                      blurRadius: 20,
+                      spread: 0.6,
+                      child: Image.asset(
+                        'assets/icons/droplet.png',
+                        width: 70,
                       ),
-                  readOnly: true, // when true user cannot edit text
-                  onTap: () async {
-                    DateTime? pickedDate = await showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(2000),
-                        lastDate: DateTime.now());
+                    ),
+                    verticalSpace(30),
+                    Text(
+                      "¿Cuándo empezó tu último periodo?",
+                      style: Theme.of(context).textTheme.titleLarge,
+                      textAlign: TextAlign.center,
+                    ),
+                    verticalSpace(120),
+                    TextField(
+                      controller:
+                          _dateController, //editing controller of this TextField
+                      decoration: const InputDecoration(
+                          icon: Icon(Icons.calendar_today), //icon of text field
+                          labelText: "Fecha" //label text of field
+                          ),
+                      readOnly: true, // when true user cannot edit text
+                      onTap: () async {
+                        DateTime? pickedDate = await showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(2000),
+                            lastDate: DateTime.now());
 
-                    if (pickedDate != null) {
-                      final appLocale =
-                          Localizations.localeOf(context).toString();
-                      // format the picked date in the locale format
-                      String formattedDate =
-                          DateFormat.yMMMEd(appLocale).format(pickedDate);
+                        if (pickedDate != null) {
+                          final appLocale =
+                              Localizations.localeOf(context).toString();
+                          // format the picked date in the locale format
+                          String formattedDate =
+                              DateFormat.yMMMEd(appLocale).format(pickedDate);
 
-                      setState(() {
-                        _dateController.text = formattedDate;
-                        _pickedDate = pickedDate;
-                      });
-                    } else {
-                      debugPrint("Date is not selected");
-                    }
-                  },
+                          setState(() {
+                            _dateController.text = formattedDate;
+                            _pickedDate = pickedDate;
+                          });
+                        } else {
+                          debugPrint("Date is not selected");
+                        }
+                      },
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
         ),

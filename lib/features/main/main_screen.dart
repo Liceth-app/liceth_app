@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:liceth_app/features/main/calendar_page.dart';
 import 'package:liceth_app/features/main/page_wrapper.dart';
 
 class MainScreen extends StatefulWidget {
@@ -43,14 +44,9 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ],
       ),
-      body: <Widget>[
-        PageWrapper(
-          child: Container(
-            color: Colors.red,
-            alignment: Alignment.center,
-            child: const Text('Page 1'),
-          ),
-        ),
+      body: PageWrapper(
+          child: <Widget>[
+        CalendarPage(),
         Container(
           color: Colors.green,
           alignment: Alignment.center,
@@ -61,7 +57,7 @@ class _MainScreenState extends State<MainScreen> {
           alignment: Alignment.center,
           child: const Text('Page 3'),
         ),
-      ][currentPageIndex],
+      ][currentPageIndex]),
     );
   }
 }

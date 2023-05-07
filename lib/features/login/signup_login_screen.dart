@@ -26,13 +26,13 @@ class SignUpLogInScreen extends SignInScreen {
                 TextSpan(
                   // text: "By logging in or signing up, you agree to our ",
                   // spanish:
-                  text: "Al registrarse aceptas nuestros ",
+                  text: "Al registrarte aceptas nuestros ",
                   children: [
                     TextSpan(
                       // text: "Terms of Service",
                       // spanish:
                       text: "Términos de servicio",
-                      style: TextStyle(
+                      style: const TextStyle(
                         decoration: TextDecoration.underline,
                       ),
                       recognizer: TapGestureRecognizer()

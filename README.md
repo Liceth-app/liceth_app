@@ -22,6 +22,10 @@ samples, guidance on mobile development, and a full API reference.
 firebase deploy --only firestore:rules
 ```
 
+## Deploy To Firebase Hosting
+
+Just commit to `main` and it will be deployed automatically.
+
 ## About models/apis creation
 
 Each time you modify/create/delete a `.model` file, you must run:

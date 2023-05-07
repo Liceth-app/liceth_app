@@ -24,6 +24,8 @@ firebase deploy --only firestore:rules
 
 ## Deploy To Firebase Hosting
 
+Make sure `deployment_constants.dart` and `.firebaserc` are configured properly.
+
 Just commit to `main` and it will be deployed automatically.
 
 ## About models/apis creation

@@ -12,7 +12,7 @@ import 'package:liceth_app/features/basic_info/screen_basic_info.dart';
 import 'package:liceth_app/features/login/signup_login_screen.dart';
 import 'package:liceth_app/features/main/main_screen.dart';
 import 'package:liceth_app/firebase_options.dart';
-import 'package:liceth_app/private_constants.dart';
+import 'package:liceth_app/deployment_constants.dart';
 import 'package:liceth_app/theme/color_schemes.dart';
 import 'package:oktoast/oktoast.dart';
 

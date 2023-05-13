@@ -40,6 +40,6 @@ flutter pub run build_runner watch --delete-conflicting-outputs
 
 This repository includes code copied and/or modified from:
 - https://github.com/jogboms/flutter_spinkit
-- https://github.com/flutter/flutter
+- https://github.com/FabioFiuza/scrollable_clean_calendar
 
 This repository uses libraries, see pubspec.yaml dependencies.

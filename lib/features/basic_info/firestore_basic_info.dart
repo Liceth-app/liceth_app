@@ -14,9 +14,8 @@ Future<bool> hasLoggedPeriods() async {
   return r.docs.isNotEmpty;
 }
 
-storePeriod(Period period) async {
-  return await FirebaseFirestore.instance
-      .collection(periodsCollectionName)
-      .doc(period.docId)
-      .set(period.toJson());
+Future<void> storePeriod(Period period) async {
+  final ref =
+      FirebaseFirestore.instance.collection(periodsCollectionName).doc();
+  return await ref.set(PeriodWithId.fromPeriod(ref.id, period).toJson());
 }

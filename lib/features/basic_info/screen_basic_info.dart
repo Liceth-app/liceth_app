@@ -4,7 +4,8 @@ import 'package:intl/intl.dart';
 import 'package:liceth_app/features/basic_info/constants_basic_info.dart';
 import 'package:liceth_app/features/basic_info/firestore_basic_info.dart';
 import 'package:liceth_app/features/basic_info/period.model.dart';
-import 'package:liceth_app/features/main/main_screen.dart';
+import 'package:liceth_app/features/main/day_type.dart';
+import 'package:liceth_app/features/main/screen_main.dart';
 import 'package:liceth_app/util/toast.dart';
 import 'package:liceth_app/util/widget/loader.dart';
 import 'package:liceth_app/util/widget/vertical_space.dart';
@@ -132,7 +133,7 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
                                       children: [
                                         RadioListTile(
                                           title: const Text(
-                                              "Si, registraré periodos luego"),
+                                              "Sí, registraré periodos luego"),
                                           value: true,
                                           groupValue: willLogPeriods,
                                           onChanged: (value) {
@@ -213,11 +214,13 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
     });
     try {
       // format the picked date in yyyy-MM-dd format
-      final d = DateFormat("yyyy-MM-dd").format(_pickedDate!);
+      final d = toYyyyMmDd(_pickedDate!);
       debugPrint(d);
 
       await storePeriod(Period(
         start: d,
+        end: toYyyyMmDd(
+            _pickedDate!.add(const Duration(days: defaultNewPeriodLength - 1))),
       ));
 
       navigateNext();

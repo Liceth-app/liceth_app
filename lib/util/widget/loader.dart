@@ -5,7 +5,9 @@ import 'package:liceth_app/util/animation/curves/spinkit_pump_curve.dart';
 import 'package:liceth_app/util/widget/faded_image.dart';
 
 class Loader extends StatefulWidget {
-  const Loader({super.key});
+  final bool applyBackground;
+
+  const Loader({super.key, this.applyBackground = true});
 
   @override
   State<Loader> createState() => _LoaderState();
@@ -46,7 +48,8 @@ class _LoaderState extends State<Loader> with SingleTickerProviderStateMixin {
         Stack(
           fit: StackFit.expand,
           children: [
-            Image.asset('assets/images/chosen_one.png', fit: BoxFit.cover),
+            if (widget.applyBackground)
+              Image.asset('assets/images/chosen_one.png', fit: BoxFit.cover),
             Positioned.fill(
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 50, sigmaY: 50),

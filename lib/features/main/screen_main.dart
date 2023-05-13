@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:liceth_app/features/basic_info/period.model.dart';
 import 'package:liceth_app/features/main/calendar_page.dart';
+import 'package:liceth_app/features/main/firestore_periods.dart';
 import 'package:liceth_app/features/main/page_wrapper.dart';
+import 'package:liceth_app/util/widget/loader.dart';
 
 class MainScreen extends StatefulWidget {
   static const routeName = '/MainScreen';
@@ -46,7 +49,19 @@ class _MainScreenState extends State<MainScreen> {
       ),
       body: PageWrapper(
           child: <Widget>[
-        CalendarPage(),
+        StreamBuilder<List<PeriodWithId>>(
+            stream: periodsStream(),
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return SelectableText('Error: ${snapshot.error!}');
+              }
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Loader(
+                  applyBackground: false,
+                );
+              }
+              return CalendarPage(periods: snapshot.data ?? []);
+            }),
         Container(
           color: Colors.green,
           alignment: Alignment.center,

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:liceth_app/features/basic_info/period.model.dart';
-import 'package:liceth_app/features/main/calendar_page.dart';
+import 'package:liceth_app/features/calendar/calendar_page.dart';
 import 'package:liceth_app/features/main/firestore_periods.dart';
 import 'package:liceth_app/features/main/page_wrapper.dart';
+import 'package:liceth_app/features/share/share_page.dart';
 import 'package:liceth_app/util/widget/loader.dart';
 
 class MainScreen extends StatefulWidget {
@@ -36,8 +37,8 @@ class _MainScreenState extends State<MainScreen> {
           NavigationDestination(
             // icon: Icon(Icons.perm_contact_cal),
             // icon: Icon(Icons.person_add),
-            icon: Icon(Icons.favorite_border),
-            selectedIcon: Icon(Icons.favorite),
+            icon: Icon(Icons.volunteer_activism_outlined),
+            selectedIcon: Icon(Icons.volunteer_activism),
             label: 'Compartir',
           ),
           NavigationDestination(
@@ -62,11 +63,7 @@ class _MainScreenState extends State<MainScreen> {
               }
               return CalendarPage(periods: snapshot.data ?? []);
             }),
-        Container(
-          color: Colors.green,
-          alignment: Alignment.center,
-          child: const Text('Page 2'),
-        ),
+        SharePage(),
         Container(
           color: Colors.blue,
           alignment: Alignment.center,

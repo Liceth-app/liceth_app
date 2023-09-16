@@ -73,7 +73,9 @@ class _CalendarPageState extends State<CalendarPage> {
         ? "¿Eliminar periodo del\n${DateFormat.yMMMEd(appLocale).format(parseYyyyMmDd(dayType.period!.start))} \nal\n${DateFormat.yMMMEd(appLocale).format(parseYyyyMmDd(dayType.period!.end))}?"
         : nowUtc.isAtSameMomentAs(utcDate)
             ? "¿Estás con tu periodo hoy?"
-            : "¿Estuviste con tu periodo el $formattedDate?";
+            : dayType.dayType == DayType.NonPeriodOther
+                ? "¿Tu periodo inició el $formattedDate?"
+                : "¿Estuviste con tu periodo el $formattedDate?";
 
     // show dialog
     await showDialog(
